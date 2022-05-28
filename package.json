@@ -1,5 +1,5 @@
 {
-	"name": "svelte-calendar",
+	"name": "sveltekit-calendar",
 	"version": "0.0.1",
 	"scripts": {
 		"dev": "svelte-kit dev",

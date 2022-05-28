@@ -16,7 +16,7 @@
 		</svg>
 		<ul>
 			<li class:active={$page.url.pathname === '/'}><a sveltekit:prefetch href="/">Home</a></li>
-			<li class:active={$page.url.pathname === '/about'}>
+			<li class:active={$page.url.pathname === '/'}>
 				<a sveltekit:prefetch href="/about">About</a>
 			</li>
 			<li class:active={$page.url.pathname === '/todos'}>
@@ -30,7 +30,7 @@
 
 	<div class="corner">
 		<!-- TODO put something else here? github link? -->
-	</div>
+	</div> 
 </header>
 
 <style>

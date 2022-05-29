@@ -1,6 +1,6 @@
 <script>
 	import { onMount } from 'svelte'; //Need to use this in order to reference 'document'
-import { each } from 'svelte/internal';
+	import { each } from 'svelte/internal'; //Using this to loop through the days we have. 
 
 	//Going to be creating a dynamic way of getting dates to populate the calendar.
 	const date = new Date();
@@ -23,22 +23,11 @@ import { each } from 'svelte/internal';
 	];
 
 	let days = '';
-	//let monthDays = "";
-
 	onMount(() => {
 		document.querySelector('.current-date h1').innerHTML = months[date.getMonth()];
 		document.querySelector('.current-date p').innerHTML = date.toDateString();
 		const monthDays = document.querySelector('.days');
-		/*for (let i = 1; i <= 31; ++i) {
-			//days += `<div>${i}</div>`;
-            //days.classList.add("days-inner"); 
-			monthDays.innerHTML += `<div class="days-inner">${i}</div>`;
-		}*/
 	});
-
-	//let counter = 1; 
-	//let i = 0; 
-	//let totalBlocks = 42 //The calendar is a 7x6 grid or 42 total days represented at once.  
 </script>
 
 <section class="container">
@@ -128,5 +117,7 @@ import { each } from 'svelte/internal';
 	.days-inner p{
 		text-align: center;
 	}
+
+	/*Mobile Layout*/
 </style>
 

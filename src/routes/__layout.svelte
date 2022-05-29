@@ -15,6 +15,7 @@
 
 <footer>
 	<p>Copyright information will go right here.</p>
+	<a target="_blank" href="https://icons8.com/icon/12776/calendar">Calendar</a> icon by <a target="_blank" href="https://icons8.com">Icons8</a>
 </footer>
 
 <style>

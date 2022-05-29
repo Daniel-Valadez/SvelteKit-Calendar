@@ -61,6 +61,10 @@
 </section>
 
 <style>
+	.container{
+		justify-content: center;
+		align-items: center;
+	}
 	.month {
 		max-width: 100%;
 		height: 12rem;
@@ -89,6 +93,7 @@
 		padding: 0 0.4rem;
 		display: flex;
 		align-items: center;
+		justify-content: center;
 	}
 	.labels div {
 		font-size: 1.5rem;
@@ -113,5 +118,7 @@
         flex-wrap: wrap;
 		text-shadow: 0 0.3rem 0.5rem rgba(0, 0, 0, 0.5);
 		transition: background-color 0.2s;
+		justify-content: center;
 	}
 </style>
+

@@ -1,4 +1,38 @@
 <script>
+
+    import { onMount } from 'svelte'; //Need to use this in order to reference 'document'
+    
+    //Going to be creating a dynamic way of getting dates to populate the calendar. 
+    const date = new Date();
+
+    //getMonth will give us a number. Can use that number to access
+    //the proper month in an object of months. 
+    const months = [
+        "January",
+        "February",
+        "March", 
+        "April", 
+        "May", 
+        "June", 
+        "July", 
+        "August", 
+        "September", 
+        "Ocotber", 
+        "November", 
+        "December"
+    ]
+
+    let days = ""
+
+    onMount(() => {
+        document.querySelector('.current-date h1').innerHTML = months[date.getMonth()]; 
+        document.querySelector('.current-date p').innerHTML = date.toDateString();
+        /*for(let i = 1; i <= 31; ++i){
+            days += `<`
+        }*/
+    }); 
+    //document.querySelector('.current-date h1').innerHTML = months[date.getMonth()]; 
+    //document.querySelector('.current-date p').innerHTML = date.toDateString(); 
 </script>
 
 <section class="container">

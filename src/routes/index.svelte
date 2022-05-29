@@ -1,17 +1,18 @@
-<!--<script context="module">
+<script context="module">
 	export const prerender = true;
 </script>
 
 <script>
-	import Counter from '$lib/Counter.svelte';
+	import Calendar from "$lib/Calendar/Calendar.svelte";
 </script>
 
 <svelte:head>
 	<title>Home</title>
-	<meta name="description" content="Svelte demo app" />
+	<meta name="description" content="SvelteKit calendar app" />
 </svelte:head>
 
-<section>
+<Calendar /> 
+<!--<section>
 	<h1>
 		<div class="welcome">
 			<picture>

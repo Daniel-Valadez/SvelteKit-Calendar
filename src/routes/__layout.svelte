@@ -1,5 +1,4 @@
 <script>
-	import Header from '$lib/header/Header.svelte';
 	import Navbar from '$lib/Navbar/Navbar.svelte';
 	import '../app.css';
 </script>
@@ -10,8 +9,12 @@
 	<slot />
 </main>
 
-<footer>
+<!--<footer>
 	<p>visit <a href="https://kit.svelte.dev">kit.svelte.dev</a> to learn SvelteKit</p>
+</footer>-->
+
+<footer>
+	<p>Copyright information will go right here.</p>
 </footer>
 
 <style>
@@ -34,9 +37,9 @@
 		padding: 40px;
 	}
 
-	footer a {
+	/*footer a {
 		font-weight: bold;
-	}
+	}*/
 
 	@media (min-width: 480px) {
 		footer {

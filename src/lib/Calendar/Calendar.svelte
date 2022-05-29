@@ -1,5 +1,6 @@
 <script>
 	import { onMount } from 'svelte'; //Need to use this in order to reference 'document'
+import { each } from 'svelte/internal';
 
 	//Going to be creating a dynamic way of getting dates to populate the calendar.
 	const date = new Date();
@@ -28,12 +29,16 @@
 		document.querySelector('.current-date h1').innerHTML = months[date.getMonth()];
 		document.querySelector('.current-date p').innerHTML = date.toDateString();
 		const monthDays = document.querySelector('.days');
-		for (let i = 1; i <= 31; ++i) {
-			days += `<div>${i}</div>`;
+		/*for (let i = 1; i <= 31; ++i) {
+			//days += `<div>${i}</div>`;
             //days.classList.add("days-inner"); 
-			monthDays.innerHTML = days;
-		}
+			monthDays.innerHTML += `<div class="days-inner">${i}</div>`;
+		}*/
 	});
+
+	//let counter = 1; 
+	//let i = 0; 
+	//let totalBlocks = 42 //The calendar is a 7x6 grid or 42 total days represented at once.  
 </script>
 
 <section class="container">
@@ -56,6 +61,12 @@
 			<div>Sat</div>
 		</div>
 		<div class="days">
+			<!--A each block with a div inside might help...-->
+			{#each {length: 42} as counter, i}
+				<div class="days-inner">
+					<p>{++i}</p>
+				</div>
+			{/each}
         </div>
 	</div>
 </section>
@@ -64,6 +75,7 @@
 	.container{
 		justify-content: center;
 		align-items: center;
+		max-width: 100%;
 	}
 	.month {
 		max-width: 100%;
@@ -88,7 +100,7 @@
 		font-size: 1.6rem;
 	}
 	.labels {
-		width: 100%;
+		max-width: 100%;
 		height: 5rem;
 		padding: 0 0.4rem;
 		display: flex;
@@ -106,19 +118,15 @@
 		text-shadow: 0 0.3rem 0.5rem rgba(0, 0, 0, 0.5);
 	}
 	.days {
-		/*width: 100%;
-		display: flex;
-		flex-wrap: wrap;
-		padding: 0.2rem;*/
-        font-size: 1.4rem;
-		margin: 0.3rem;
-		width: calc(40.2rem / 7);
-		height: 5rem;
-		display: flex;
-        flex-wrap: wrap;
-		text-shadow: 0 0.3rem 0.5rem rgba(0, 0, 0, 0.5);
-		transition: background-color 0.2s;
+		max-width: 100%;
+		display: grid;
+		grid-auto-flow: row;
+		grid-template-columns: repeat(7, 1fr);
 		justify-content: center;
+	}
+
+	.days-inner p{
+		text-align: center;
 	}
 </style>
 

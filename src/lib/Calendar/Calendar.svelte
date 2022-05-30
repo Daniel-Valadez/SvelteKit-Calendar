@@ -26,8 +26,14 @@
 	onMount(() => {
 		document.querySelector('.current-date h1').innerHTML = months[date.getMonth()];
 		document.querySelector('.current-date p').innerHTML = date.toDateString();
-		const monthDays = document.querySelector('.days');
 	});
+
+	/*This gives me the last day of the current month.*/
+	const lastDay = new Date(date.getFullYear(), date.getMonth() + 1, 0);
+	console.log("This is the last day in May: ", lastDay);
+	//let x = 0; 
+	//$: x; 
+	//$: console.log("This is the value in x:", x); 
 </script>
 
 <section class="container">
@@ -50,7 +56,6 @@
 			<div>Sat</div>
 		</div>
 		<div class="days">
-			<!--A each block with a div inside might help...-->
 			{#each {length: 42} as counter, i}
 				<div class="days-inner">
 					<p>{++i}</p>
@@ -92,7 +97,9 @@
 		max-width: 100%;
 		height: 5rem;
 		padding: 0 0.4rem;
-		display: flex;
+		display: grid;
+		grid-auto-flow: row;
+		grid-template-columns: repeat(7, 1fr);
 		align-items: center;
 		justify-content: center;
 	}
@@ -100,11 +107,10 @@
 		font-size: 1.5rem;
 		font-weight: lighter;
 		letter-spacing: 0.1rem;
-		width: calc(44.2rem / 7);
-		display: flex;
 		justify-content: center;
 		align-items: center;
 		text-shadow: 0 0.3rem 0.5rem rgba(0, 0, 0, 0.5);
+		text-align: center;
 	}
 	.days {
 		max-width: 100%;

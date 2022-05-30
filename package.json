@@ -20,6 +20,8 @@
 	"type": "module",
 	"dependencies": {
 		"@fontsource/fira-mono": "^4.5.0",
-		"cookie": "^0.4.1"
+		"@fortawesome/free-solid-svg-icons": "^6.1.1",
+		"cookie": "^0.4.1",
+		"svelte-awesome": "^3.0.0"
 	}
 }

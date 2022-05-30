@@ -1,6 +1,9 @@
 <script>
 	import { onMount } from 'svelte'; //Need to use this in order to reference 'document'
 	import { each } from 'svelte/internal'; //Using this to loop through the days we have. 
+	import Icon from 'svelte-awesome'; 
+	import chevronLeft from 'svelte-awesome/icons/chevronLeft'; 
+	import chevronRight from 'svelte-awesome/icons/chevronRight';
 
 	//Going to be creating a dynamic way of getting dates to populate the calendar.
 	const date = new Date();
@@ -39,12 +42,14 @@
 <section class="container">
 	<div class="calendar">
 		<div class="month">
-			<span class="left arrow" />
+			<!--<span class="left arrow" />-->
+			<Icon data={chevronLeft}/>
 			<div class="current-date">
 				<h1 />
 				<p />
 			</div>
-			<span class="right arrow" />
+			<!--<span class="right arrow" />-->
+			<Icon data={chevronRight} /> 
 		</div>
 		<div class="labels">
 			<div>Sun</div>

@@ -170,9 +170,24 @@
 			<div>Sat</div>
 		</div>
 		<div class="days">
-			{#each { length: totalLength } as counter, i}
+			<!--{#each { length: totalLength } as counter, i}
 				<div class="days-inner">
 					<p>{totalArray[i]}</p>
+				</div>
+			{/each}-->
+			{#each {length: prevNumbers.length} as counter, i}
+				<div class="other-days days-inner">
+					<p>{prevNumbers[i]}</p>
+				</div>
+			{/each}
+			{#each {length: numbers.length} as counter, i}
+				<div class="days-inner">
+					<p>{numbers[i]}</p>
+				</div>
+			{/each}
+			{#each {length: nextNumbers.length} as counter, i}
+				<div class="other-days days-inner">
+					<p>{nextNumbers[i]}</p>
 				</div>
 			{/each}
 
@@ -247,13 +262,9 @@
 		row-gap: 5rem;
 	}
 
-	.arrow:hover {
-		cursor: pointer;
+	.other-days{
+		opacity: 0.5;
 	}
-
-	/*.days-inner p{
-		text-align: center;
-	}*/
 
 	/*Mobile Layout*/
 </style>

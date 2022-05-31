@@ -8,86 +8,21 @@
 
 	//Going to be creating a dynamic way of getting dates to populate the calendar.
 	const date = new Date();
-
-	/*const renderCalendar = () => {
-		date.setDate(1); //Fixed a bug where all my days were offset by 1.
-
-		//This gives me the last day of the current month as a numeric value. 
-		const lastDay = new Date(date.getFullYear(), date.getMonth() + 1, 0).getDate();
-		//console.log("This is how many days there are in the month of May: ", lastDay); \
-		const firstDay = date.getDay();
-		const prevLast = new Date(date.getFullYear(), date.getMonth(), 0).getDate(); //30 days in the previous month.
-		//console.log(prevLast)
-
-		const lastDayIndex = new Date(date.getFullYear(), date.getMonth() + 1, 0).getDay();
-		const nextDays = 7 - lastDayIndex - 1;
-
-		//getMonth will give us a number. Can use that number to access
-		//the proper month in an object of months.
-		const months = [
-			'January',
-			'February',
-			'March',
-			'April',
-			'May',
-			'June',
-			'July',
-			'August',
-			'September',
-			'Ocotber',
-			'November',
-			'December'
-		];
-
-		let days = '';
-		onMount(() => {
-			document.querySelector('.current-date h1').innerHTML = months[date.getMonth()];
-			document.querySelector('.current-date p').innerHTML = new Date().toDateString();
-			const monthDays = document.querySelector('.days');
-			for (let x = firstDay; x > 0; --x) {
-				days += `<div style="opacity: 0.5;">${prevLast - x + 1}</div>`;
-			}
-			for (let i = 1; i <= lastDay; ++i) {
-				days += `<div>${i}</div>`;
-			}
-			for (let j = 1; j <= nextDays; ++j) {
-				days += `<div style="opacity: 0.5;">${j}</div>`;
-				monthDays.innerHTML = days;
-			}
-		});
-	};
-
-	//Event handlers to traverse the year...
-	let left = false;
-	let right = true;
-
-	let shiftCalendarLeft = () => {
-		date.setMonth(date.getMonth() - 1);
-		renderCalendar();
-	}
-	let shiftCalendarRight = () =>  {
-		date.setMonth(date.getMonth() + 1);
-		renderCalendar();
-	}
-
-	let test = () => {
-		console.log('Helllo, world.');
-	}
-
-	renderCalendar();*/
-
 	let month = '';
 	let currentDate = '';
 	let prevNumbers = []; //an array of dates of the previous month to render
 	let numbers = []; //The current months numbers to render.
 	let nextNumbers = []; //The next months numbers to render;
-	let totalLength = 0;
-	let totalArray = [];
+	//let totalLength = 0;
+	//let totalArray = [];
 	let renderCalendar = () => {
 		prevNumbers = []
 		numbers = []
 		nextNumbers = []
-		totalArray = []
+		//totalArray = []
+
+		//getMonth will give us a number. Can use that number to access
+		//the proper month in an object of months.
 		const months = [
 			'January',
 			'February',
@@ -116,24 +51,25 @@
 		for (let x = firstDay; x > 0; --x) {
 			prevNumbers.push(prevLast - x + 1);
 		}
-		console.log('The array of previous numbers: ', prevNumbers);
+		//console.log('The array of previous numbers: ', prevNumbers);
 
 		for (let i = 1; i <= lastDay; ++i) {
 			numbers.push(i);
 		}
 
-		console.log('The array of numbers to render this month....', numbers);
+		//console.log('The array of numbers to render this month....', numbers);
 
 		for (let j = 1; j <= nextDays; ++j) {
 			nextNumbers.push(j);
 		}
 
-		console.log('The array of numbers to be pushed the next month, ', nextNumbers);
-		totalLength = prevNumbers.length + numbers.length + nextNumbers.length;
-		totalArray = prevNumbers.concat(numbers, nextNumbers);
-		console.log('Total array', totalArray);
+		//console.log('The array of numbers to be pushed the next month, ', nextNumbers);
+		//totalLength = prevNumbers.length + numbers.length + nextNumbers.length;
+		//totalArray = prevNumbers.concat(numbers, nextNumbers);
+		//console.log('Total array', totalArray);
 	};
 
+	/*On-click event handlers to cycle through the calendar.*/
 	let shiftCalendarLeft = () => {
 		date.setMonth(date.getMonth() - 1);
 		renderCalendar();
@@ -143,6 +79,7 @@
 		renderCalendar();
 	};
 
+	/*The first call provides the initial values for the calendar.*/
 	renderCalendar();
 </script>
 
@@ -170,11 +107,6 @@
 			<div>Sat</div>
 		</div>
 		<div class="days">
-			<!--{#each { length: totalLength } as counter, i}
-				<div class="days-inner">
-					<p>{totalArray[i]}</p>
-				</div>
-			{/each}-->
 			{#each {length: prevNumbers.length} as counter, i}
 				<div class="other-days days-inner">
 					<p>{prevNumbers[i]}</p>
@@ -190,18 +122,7 @@
 					<p>{nextNumbers[i]}</p>
 				</div>
 			{/each}
-
-			<!--{#each {length: totalLength} as counter, i}
-				<div class="days-inner">
-					{#if i < prevNumbers.length}
-					<p>{prevNumbers[i]}</p>
-					{:else if i <= prevNumbers.length}
-					<p>{numbers[i]}</p>
-					{/if}
-				</div>
-			{/each}-->
 		</div>
-		<!--<div class="days" />-->
 	</div>
 </section>
 
@@ -264,6 +185,10 @@
 
 	.other-days{
 		opacity: 0.5;
+	}
+
+	.days-inner p{
+		font-weight: bold;
 	}
 
 	/*Mobile Layout*/

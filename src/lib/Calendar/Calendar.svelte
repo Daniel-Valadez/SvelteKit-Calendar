@@ -1,86 +1,164 @@
 <script>
 	import { onMount } from 'svelte'; //Need to use this in order to reference 'document'
-	import { each } from 'svelte/internal'; //Using this to loop through the days we have. 
-	import Icon from 'svelte-awesome'; 
-	import chevronLeft from 'svelte-awesome/icons/chevronLeft'; 
+	import { each } from 'svelte/internal'; //Using this to loop through the days we have.
+	import Icon from 'svelte-awesome';
+	import chevronLeft from 'svelte-awesome/icons/chevronLeft';
 	import chevronRight from 'svelte-awesome/icons/chevronRight';
+	import Counter from '$lib/Counter.svelte';
 
 	//Going to be creating a dynamic way of getting dates to populate the calendar.
 	const date = new Date();
-	date.setDate(1); //Fixed a bug where all my days were offset by 1. 
 
-	/*This gives me the last day of the current month as a numeric value. */
-	const lastDay = new Date(date.getFullYear(), date.getMonth() + 1, 0).getDate(); 
-	//console.log("This is how many days there are in the month of May: ", lastDay); \
-	const firstDay = date.getDay(); 
-	const prevLast = new Date(date.getFullYear(), date.getMonth(), 0).getDate(); //30 days in the previous month.  
-	//console.log(prevLast)
+	/*const renderCalendar = () => {
+		date.setDate(1); //Fixed a bug where all my days were offset by 1.
 
-	const lastDayIndex = new Date(date.getFullYear(), date.getMonth() + 1, 0).getDay(); 
-	const nextDays = 7 - lastDayIndex - 1; 
+		//This gives me the last day of the current month as a numeric value. 
+		const lastDay = new Date(date.getFullYear(), date.getMonth() + 1, 0).getDate();
+		//console.log("This is how many days there are in the month of May: ", lastDay); \
+		const firstDay = date.getDay();
+		const prevLast = new Date(date.getFullYear(), date.getMonth(), 0).getDate(); //30 days in the previous month.
+		//console.log(prevLast)
 
-	//getMonth will give us a number. Can use that number to access
-	//the proper month in an object of months.
-	const months = [
-		'January',
-		'February',
-		'March',
-		'April',
-		'May',
-		'June',
-		'July',
-		'August',
-		'September',
-		'Ocotber',
-		'November',
-		'December'
-	];
+		const lastDayIndex = new Date(date.getFullYear(), date.getMonth() + 1, 0).getDay();
+		const nextDays = 7 - lastDayIndex - 1;
 
-	let days = '';
-	onMount(() => {
-		
-		document.querySelector('.current-date h1').innerHTML = months[date.getMonth()];
-		document.querySelector('.current-date p').innerHTML = date.toDateString();
-		const monthDays = document.querySelector('.days'); 
-		for(let x = firstDay; x > 0; --x){
-			days += `<div class="prev-date">${prevLast - x + 1}</div>`; 
-		}
-		for(let i = 1; i <= lastDay; ++i){
-			days += `<div>${i}</div>`
-			
-		}
-		for(let j = 1; j <= nextDays; ++j){
-			days += `<div style="opacity: 0.5;">${j}</div>`
-			monthDays.innerHTML = days; 
-		}
-	}); 
+		//getMonth will give us a number. Can use that number to access
+		//the proper month in an object of months.
+		const months = [
+			'January',
+			'February',
+			'March',
+			'April',
+			'May',
+			'June',
+			'July',
+			'August',
+			'September',
+			'Ocotber',
+			'November',
+			'December'
+		];
 
-	/*Event handlers to traverse the year...*/
-	let left = false; 
+		let days = '';
+		onMount(() => {
+			document.querySelector('.current-date h1').innerHTML = months[date.getMonth()];
+			document.querySelector('.current-date p').innerHTML = new Date().toDateString();
+			const monthDays = document.querySelector('.days');
+			for (let x = firstDay; x > 0; --x) {
+				days += `<div style="opacity: 0.5;">${prevLast - x + 1}</div>`;
+			}
+			for (let i = 1; i <= lastDay; ++i) {
+				days += `<div>${i}</div>`;
+			}
+			for (let j = 1; j <= nextDays; ++j) {
+				days += `<div style="opacity: 0.5;">${j}</div>`;
+				monthDays.innerHTML = days;
+			}
+		});
+	};
+
+	//Event handlers to traverse the year...
+	let left = false;
 	let right = true;
 
-	function shiftCalendar(Boolean){
-		if(!Boolean){
-
-		}
-
-		if(Boolean){
-
-		}
+	let shiftCalendarLeft = () => {
+		date.setMonth(date.getMonth() - 1);
+		renderCalendar();
 	}
+	let shiftCalendarRight = () =>  {
+		date.setMonth(date.getMonth() + 1);
+		renderCalendar();
+	}
+
+	let test = () => {
+		console.log('Helllo, world.');
+	}
+
+	renderCalendar();*/
+
+	let month = '';
+	let currentDate = '';
+	let prevNumbers = []; //an array of dates of the previous month to render
+	let numbers = []; //The current months numbers to render.
+	let nextNumbers = []; //The next months numbers to render;
+	let totalLength = 0;
+	let totalArray = [];
+	let renderCalendar = () => {
+		prevNumbers = []
+		numbers = []
+		nextNumbers = []
+		totalArray = []
+		const months = [
+			'January',
+			'February',
+			'March',
+			'April',
+			'May',
+			'June',
+			'July',
+			'August',
+			'September',
+			'Ocotber',
+			'November',
+			'December'
+		];
+		date.setDate(1);
+		month = months[date.getMonth()];
+		//console.log('The month is: ', month);
+		currentDate = new Date().toDateString();
+
+		const lastDay = new Date(date.getFullYear(), date.getMonth() + 1, 0).getDate();
+		const firstDay = date.getDay();
+		const prevLast = new Date(date.getFullYear(), date.getMonth(), 0).getDate();
+		const lastDayIndex = new Date(date.getFullYear(), date.getMonth() + 1, 0).getDay();
+		const nextDays = 7 - lastDayIndex - 1;
+
+		for (let x = firstDay; x > 0; --x) {
+			prevNumbers.push(prevLast - x + 1);
+		}
+		console.log('The array of previous numbers: ', prevNumbers);
+
+		for (let i = 1; i <= lastDay; ++i) {
+			numbers.push(i);
+		}
+
+		console.log('The array of numbers to render this month....', numbers);
+
+		for (let j = 1; j <= nextDays; ++j) {
+			nextNumbers.push(j);
+		}
+
+		console.log('The array of numbers to be pushed the next month, ', nextNumbers);
+		totalLength = prevNumbers.length + numbers.length + nextNumbers.length;
+		totalArray = prevNumbers.concat(numbers, nextNumbers);
+		console.log('Total array', totalArray);
+	};
+
+	let shiftCalendarLeft = () => {
+		date.setMonth(date.getMonth() - 1);
+		renderCalendar();
+	};
+	let shiftCalendarRight = () => {
+		date.setMonth(date.getMonth() + 1);
+		renderCalendar();
+	};
+
+	renderCalendar();
 </script>
 
 <section class="container">
 	<div class="calendar">
 		<div class="month">
-			<!--<span class="left arrow" />-->
-			<Icon data={chevronLeft} on:click={shiftCalendar(left)} />
+			<span on:click={() => shiftCalendarLeft()}>
+				<Icon data={chevronLeft} scale={2} style="cursor: pointer;" />
+			</span>
 			<div class="current-date">
-				<h1 />
-				<p />
+				<h1>{month}</h1>
+				<p>{currentDate}</p>
 			</div>
-			<!--<span class="right arrow" />-->
-			<Icon data={chevronRight} on:click={shiftCalendar(right)}/> 
+			<span on:click={() => shiftCalendarRight()}>
+				<Icon data={chevronRight} scale={2} style="cursor: pointer;" />
+			</span>
 		</div>
 		<div class="labels">
 			<div>Sun</div>
@@ -91,20 +169,29 @@
 			<div>Fri</div>
 			<div>Sat</div>
 		</div>
-		<!--<div class="days">
-			{#each {length: 31} as counter, i}
+		<div class="days">
+			{#each { length: totalLength } as counter, i}
 				<div class="days-inner">
-					<p>{++i}</p>
+					<p>{totalArray[i]}</p>
 				</div>
 			{/each}
-        </div>-->
-		<div class="days">
+
+			<!--{#each {length: totalLength} as counter, i}
+				<div class="days-inner">
+					{#if i < prevNumbers.length}
+					<p>{prevNumbers[i]}</p>
+					{:else if i <= prevNumbers.length}
+					<p>{numbers[i]}</p>
+					{/if}
+				</div>
+			{/each}-->
 		</div>
+		<!--<div class="days" />-->
 	</div>
 </section>
 
 <style>
-	.container{
+	.container {
 		justify-content: center;
 		align-items: center;
 		max-width: 100%;
@@ -160,10 +247,13 @@
 		row-gap: 5rem;
 	}
 
+	.arrow:hover {
+		cursor: pointer;
+	}
+
 	/*.days-inner p{
 		text-align: center;
 	}*/
 
 	/*Mobile Layout*/
 </style>
-

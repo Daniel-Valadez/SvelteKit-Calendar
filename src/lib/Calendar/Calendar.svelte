@@ -1,6 +1,6 @@
 <script>
 	import { onMount } from 'svelte'; //Need to use this in order to reference 'document'
-	import { each } from 'svelte/internal'; //Using this to loop through the days we have.
+	import { each, missing_component } from 'svelte/internal'; //Using this to loop through the days we have.
 	import Icon from 'svelte-awesome';
 	import chevronLeft from 'svelte-awesome/icons/chevronLeft';
 	import chevronRight from 'svelte-awesome/icons/chevronRight';
@@ -69,15 +69,11 @@
 		//console.log('Total array', totalArray);
 	};
 
-	/*On-click event handlers to cycle through the calendar.*/
-	let shiftCalendarLeft = () => {
-		date.setMonth(date.getMonth() - 1);
-		renderCalendar();
-	};
-	let shiftCalendarRight = () => {
-		date.setMonth(date.getMonth() + 1);
-		renderCalendar();
-	};
+	/*Single on-click handler*/
+	let shiftCalendar = (offset) => {
+		date.setMonth(date.getMonth() + offset)
+		renderCalendar()
+	}; 
 
 	/*The first call provides the initial values for the calendar.*/
 	renderCalendar();
@@ -86,14 +82,14 @@
 <section class="container">
 	<div class="calendar">
 		<div class="month">
-			<span on:click={() => shiftCalendarLeft()}>
+			<span on:click={() => shiftCalendar(-1)}>
 				<Icon data={chevronLeft} scale={2} style="cursor: pointer;" />
 			</span>
 			<div class="current-date">
 				<h1>{month}</h1>
 				<p>{currentDate}</p>
 			</div>
-			<span on:click={() => shiftCalendarRight()}>
+			<span on:click={() => shiftCalendar(1)}>
 				<Icon data={chevronRight} scale={2} style="cursor: pointer;" />
 			</span>
 		</div>

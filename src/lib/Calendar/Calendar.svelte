@@ -16,9 +16,9 @@
 	//let totalLength = 0;
 	//let totalArray = [];
 	let renderCalendar = () => {
-		prevNumbers = []
-		numbers = []
-		nextNumbers = []
+		prevNumbers = [];
+		numbers = [];
+		nextNumbers = [];
 		//totalArray = []
 
 		//getMonth will give us a number. Can use that number to access
@@ -71,9 +71,9 @@
 
 	/*Single on-click handler*/
 	let shiftCalendar = (offset) => {
-		date.setMonth(date.getMonth() + offset)
-		renderCalendar()
-	}; 
+		date.setMonth(date.getMonth() + offset);
+		renderCalendar();
+	};
 
 	/*The first call provides the initial values for the calendar.*/
 	renderCalendar();
@@ -103,17 +103,19 @@
 			<div>Sat</div>
 		</div>
 		<div class="days">
-			{#each {length: prevNumbers.length} as counter, i}
+			{#each { length: prevNumbers.length } as counter, i}
 				<div class="other-days days-inner">
 					<p>{prevNumbers[i]}</p>
 				</div>
 			{/each}
-			{#each {length: numbers.length} as counter, i}
-				<div class="days-inner">
-					<p>{numbers[i]}</p>
-				</div>
+			{#each { length: numbers.length } as counter, i}
+				<a href={"/day/" + (i + 1)}>
+					<div class="days-inner">
+						<p>{numbers[i]}</p>
+					</div>
+				</a>
 			{/each}
-			{#each {length: nextNumbers.length} as counter, i}
+			{#each { length: nextNumbers.length } as counter, i}
 				<div class="other-days days-inner">
 					<p>{nextNumbers[i]}</p>
 				</div>
@@ -179,12 +181,16 @@
 		row-gap: 5rem;
 	}
 
-	.other-days{
+	.other-days {
 		opacity: 0.5;
 	}
 
-	.days-inner p{
+	.days-inner p {
 		font-weight: bold;
+	}
+	a:hover{
+		text-decoration: none;
+		background-color: orange;
 	}
 
 	/*Mobile Layout*/

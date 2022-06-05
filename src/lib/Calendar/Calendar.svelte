@@ -181,12 +181,16 @@
 		row-gap: 5rem;
 	}
 
-	.other-days {
+	.other-days p{
 		opacity: 0.5;
 	}
 
+	.days-inner{
+		border: solid 0.1rem black;  
+	}
 	.days-inner p {
 		font-weight: bold;
+		place-self: center;
 	}
 	a:hover{
 		text-decoration: none;

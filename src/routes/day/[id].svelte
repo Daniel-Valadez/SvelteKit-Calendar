@@ -3,11 +3,11 @@ pool dynamic data.-->
 <script>
     //Need to parse the URL to find out what the day is.  
     import { page } from '$app/stores'; 
-    const day = $page.url.pathname.replace('/day/', '');
+    const date = $page.url.pathname.replace('/day/', '');
     //console.log(day);
 </script> 
 
-<h2>{day}</h2>
+<h2>{date}</h2>
 
 
 <style>

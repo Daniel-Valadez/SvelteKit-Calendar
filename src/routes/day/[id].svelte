@@ -4,17 +4,18 @@ pool dynamic data.-->
 	//Need to parse the URL to find out what the day is.
 	import { page } from '$app/stores';
 	let date = $page.url.pathname.replace('/day/', '');
-	date = date.replaceAll('%20', ' '); 
+	date = date.replaceAll('%20', ' ');
 	//console.log(day);
 	let weather = '70 Degrees';
+	let weatherApi = false; 
 	import plusCircle from 'svelte-awesome/icons/plusCircle';
-	import { Icon } from 'svelte-awesome';
+	//import { Icon } from 'svelte-awesome';
 	import { onMount } from 'svelte/internal';
 	import TodoApi from '../../TodoApi';
 	import { items } from '../../strores';
 	import Item from '$lib/Item/Item.svelte';
 	import NewItem from '$lib/NewItem/NewItem.svelte';
-	let number = 0; 
+	let number = 0;
 	function handleNewItem({ detail: text }) {
 		$items = [
 			{
@@ -36,7 +37,7 @@ pool dynamic data.-->
 		TodoApi.save($items);
 	}
 
-	//Function to sort the items on the list. 
+	//Function to sort the items on the list.
 	let itemsSorted = [];
 	$: {
 		itemsSorted = [...$items];
@@ -57,13 +58,13 @@ pool dynamic data.-->
 	<div class="parent-box">
 		<div class="left-box">
 			<p>{date}</p>
-			{#if weather}
-				<p>{weather}</p>
-			{/if}
 		</div>
 		<div class="right-box">
-			<p class="add-elements">Create Event</p>
-			<Icon data={plusCircle} scale={1.5} style="cursor: pointer; color: orangered;" />
+			<!--<p class="add-elements">Create Event</p>
+			<Icon data={plusCircle} scale={1.5} style="cursor: pointer; color: orangered;" />-->
+			{#if weatherApi}
+				<p>{weather}</p>
+			{/if}
 		</div>
 	</div>
 	<div class="list">

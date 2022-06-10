@@ -1,10 +1,9 @@
 <script>
 	import { onMount } from 'svelte'; //Need to use this in order to reference 'document'
-	import { each, missing_component } from 'svelte/internal'; //Using this to loop through the days we have.
+	import { each } from 'svelte/internal'; //Using this to loop through the days we have.
 	import Icon from 'svelte-awesome';
 	import chevronLeft from 'svelte-awesome/icons/chevronLeft';
 	import chevronRight from 'svelte-awesome/icons/chevronRight';
-	import Counter from '$lib/Counter.svelte';
 
 	//Going to be creating a dynamic way of getting dates to populate the calendar.
 	const date = new Date();

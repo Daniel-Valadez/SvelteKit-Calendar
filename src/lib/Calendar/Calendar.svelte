@@ -1,6 +1,6 @@
 <script>
 	import { onMount } from 'svelte'; //Need to use this in order to reference 'document'
-	import { each } from 'svelte/internal'; //Using this to loop through the days we have.
+	import { each, now } from 'svelte/internal'; //Using this to loop through the days we have.
 	import Icon from 'svelte-awesome';
 	import chevronLeft from 'svelte-awesome/icons/chevronLeft';
 	import chevronRight from 'svelte-awesome/icons/chevronRight';
@@ -12,6 +12,8 @@
 	let prevNumbers = []; //an array of dates of the previous month to render
 	let numbers = []; //The current months numbers to render.
 	let nextNumbers = []; //The next months numbers to render;
+	let FullDates = []; 
+	let newerDates = []; 
 	//let totalLength = 0;
 	//let totalArray = [];
 	let renderCalendar = () => {
@@ -62,6 +64,25 @@
 			nextNumbers.push(j);
 		}
 
+		function getAllDaysInMonth(year, month) {
+			const dt = new Date(year, month, 1);
+
+			const dates = [];
+
+			while (dt.getMonth() === month) {
+				dates.push(new Date(dt));
+				dt.setDate(dt.getDate() + 1);
+			}
+
+			return dates;
+		}
+		let dummy = ''
+		FullDates = getAllDaysInMonth(date.getFullYear(), date.getMonth());
+		dummy = FullDates.toString(); 
+		dummy = dummy.replaceAll('00:00:00 GMT-0700 (Pacific Daylight Time)', '')
+		newerDates = dummy.split(' ,', lastDay); 
+		console.log(newerDates);
+		//console.log(FullDates);
 		//console.log('The array of numbers to be pushed the next month, ', nextNumbers);
 		//totalLength = prevNumbers.length + numbers.length + nextNumbers.length;
 		//totalArray = prevNumbers.concat(numbers, nextNumbers);
@@ -107,8 +128,15 @@
 					<p>{prevNumbers[i]}</p>
 				</div>
 			{/each}
+			<!--{#each { length: numbers.length } as counter, i}
+				<a href={'/day/' + FullDates[i]}>
+					<div class="days-inner">
+						<p>{numbers[i]}</p>
+					</div>
+				</a>
+			{/each}-->
 			{#each { length: numbers.length } as counter, i}
-				<a href={"/day/" + (i + 1)}>
+				<a href={'/day/' + newerDates[i]}>
 					<div class="days-inner">
 						<p>{numbers[i]}</p>
 					</div>
@@ -180,22 +208,21 @@
 		row-gap: 5rem;
 	}
 
-	.other-days p{
+	.other-days p {
 		opacity: 0.5;
 	}
 
-	.days-inner{
-		border: solid 0.1rem black;  
+	.days-inner {
+		border: solid 0.1rem black;
 	}
 	.days-inner p {
 		font-weight: bold;
 		place-self: center;
 	}
-	a:hover{
+	a:hover {
 		text-decoration: none;
 		background-color: orange;
 	}
 
 	/*Mobile Layout*/
-	
 </style>

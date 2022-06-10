@@ -3,7 +3,8 @@ pool dynamic data.-->
 <script>
 	//Need to parse the URL to find out what the day is.
 	import { page } from '$app/stores';
-	const date = $page.url.pathname.replace('/day/', '');
+	let date = $page.url.pathname.replace('/day/', '');
+	date = date.replaceAll('%20', ' '); 
 	//console.log(day);
 	let weather = '70 Degrees';
 	import plusCircle from 'svelte-awesome/icons/plusCircle';

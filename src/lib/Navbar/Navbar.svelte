@@ -7,7 +7,6 @@
         <ul>
             <li class:active={$page.url.pathname === '/'}><a sveltekit:prefetch href="/">Home</a></li>
             <li><a sveltekit:prefetch href="/about">About</a></li>
-            <li>Search Bar</li>
         </ul>
     </nav>
 </header>
